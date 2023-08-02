@@ -1,26 +1,26 @@
 #include "binary_trees.h"
 
 /**
- * tree_size - measures the sum of heights of a binary tree
+ * sum_hgt - measures the sum of heights of a binary tree
  * @tree: pointer to the root node of the tree to measure the height
  *
  * Return: Height or 0 if tree is NULL
  */
-size_t tree_size(const binary_tree_t *tree)
+size_t sum_hgt(const binary_tree_t *tree)
 {
-	size_t height_l = 0;
-	size_t height_r = 0;
+	size_t height_a = 0;
+	size_t height_b = 0;
 
 	if (!tree)
 		return (0);
 
 	if (tree->left)
-		height_l = 1 + tree_size(tree->left);
+		height_a = 1 + sum_hgt(tree->left);
 
 	if (tree->right)
-		height_r = 1 + tree_size(tree->right);
+		height_b = 1 + sum_hgt(tree->right);
 
-	return (height_l + height_r);
+	return (height_a + height_b);
 }
 
 /**
@@ -34,20 +34,20 @@ size_t tree_size(const binary_tree_t *tree)
  */
 int *heap_to_sorted_array(heap_t *heap, size_t *size)
 {
-	int i, *a = NULL;
+	int a, *b = NULL;
 
 	if (!heap || !size)
 		return (NULL);
 
-	*size = tree_size(heap) + 1;
+	*size = sum_hgt(heap) + 1;
 
-	a = malloc(sizeof(int) * (*size));
+	b = malloc(sizeof(int) * (*size));
 
-	if (!a)
+	if (!b)
 		return (NULL);
 
-	for (i = 0; heap; i++)
-		a[i] = heap_extract(&heap);
+	for (a = 0; heap; a++)
+		b[a] = heap_extract(&heap);
 
-	return (a);
+	return (b);
 }

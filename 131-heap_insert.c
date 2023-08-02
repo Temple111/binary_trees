@@ -10,22 +10,22 @@
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *tree, *new, *flip;
-	int size, leaves, sub, bit, level, tmp;
+	heap_t *tree, *nw, *flp;
+	int sz, leaves_0, sub_0, bit, level, cmp;
 
 	if (!root)
 		return (NULL);
 	if (!(*root))
 		return (*root = binary_tree_node(NULL, value));
 	tree = *root;
-	size = binary_tree_size(tree);
-	leaves = size;
-	for (level = 0, sub = 1; leaves >= sub; sub *= 2, level++)
-		leaves -= sub;
+	sz = binary_tree_size(tree);
+	leaves_0 = sz;
+	for (level = 0, sub_0 = 1; leaves_0 >= sub_0; sub_0 *= 2, level++)
+		leaves_0 -= sub_0;
 	/* subtract all nodes except for bottom-most level */
 
 	for (bit = 1 << (level - 1); bit != 1; bit >>= 1)
-		tree = leaves & bit ? tree->right : tree->left;
+		tree = leaves_0 & bit ? tree->right : tree->left;
 	/*
 	 * Traverse tree to first empty slot based on the binary
 	 * representation of the number of leaves.
@@ -36,20 +36,20 @@ heap_t *heap_insert(heap_t **root, int value)
 	 * The first empty node is 101 == RLR, *root->right->left->right
 	 */
 
-	new = binary_tree_node(tree, value);
-	leaves & 1 ? (tree->right = new) : (tree->left = new);
+	nw = binary_tree_node(tree, value);
+	leaves_0 & 1 ? (tree->right = nw) : (tree->left = nw);
 
-	flip = new;
-	for (; flip->parent && (flip->n > flip->parent->n); flip = flip->parent)
+	flp = nw;
+	for (; flp->parent && (flp->n > flp->parent->n); flp = flp->parent)
 	{
-		tmp = flip->n;
-		flip->n = flip->parent->n;
-		flip->parent->n = tmp;
-		new = new->parent;
+		cmp = flp->n;
+		flp->n = flp->parent->n;
+		flp->parent->n = cmp;
+		nw = nw->parent;
 	}
 	/* Flip values with parent until parent value exceeds new value */
 
-	return (new);
+	return (nw);
 }
 
 /**
