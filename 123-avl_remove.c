@@ -79,7 +79,7 @@ int remove_type(bst_t *base)
 				base->parent->right = base->left;
 			else
 				base->parent->left = base->left;
-			base->left->parent =base->parent;
+			base->left->parent = base->parent;
 		}
 		free(base);
 		return (0);

@@ -25,7 +25,8 @@ int greater_than_val(const binary_tree_t *tree, int va)
 }
 
 /**
- * less_than_val - check if all values in the tree are less than a specific value
+ * less_than_val - check if all values in the tree are less than a
+ *                 specific value
  * @tree: pointer to the tree to check
  * @va: value to check against
  *
@@ -57,7 +58,8 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 		return (0);
-	if (less_than_val(tree->left, tree->n) && greater_than_val(tree->right, tree->n))
+	if (less_than_val(tree->left, tree->n) && greater_than_val(tree->right,
+				tree->n))
 	{
 		if (!tree->left || binary_tree_is_bst(tree->left))
 		{
